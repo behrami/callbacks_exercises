@@ -130,7 +130,7 @@ console.log( 'The total number of transactions is:', totalTransactions );
   HINT(S):
   - Not all transactions are 'sales'.
 */
-var numSales;
+var numSales=0;
 
 /*
   Hey, welcome to the first question!
@@ -151,6 +151,12 @@ var numSales;
   The breakdown above takes up a lot of space, feel free to move it to the top or bottom of the file!
 */
 
+for(i=0; i<totalTransactions; i++){
+  if (transactions[i].type === 'sale'){
+    numSales++;
+  }
+}
+
 console.log( 'The total number of sales is:', numSales );
 
 
@@ -160,7 +166,13 @@ console.log( 'The total number of sales is:', numSales );
 /*
   Calculate the total number of 'purchases'.
 */
-var numPurchases;
+var numPurchases=0;
+
+for(i=0; i<totalTransactions; i++){
+  if (transactions[i].type === 'purchase'){
+    numPurchases++;
+  }
+}
 
 console.log( 'The total number of purchases is:', numPurchases );
 
@@ -174,7 +186,13 @@ console.log( 'The total number of purchases is:', numPurchases );
   HINT(S):
   - Don't forget that 'purchases' can also be made in 'cash'!
 */
-var numCashSales;
+var numCashSales=0;
+
+for(i=0; i<totalTransactions; i++){
+  if (transactions[i].type === 'sale' && transactions[i].paymentMethod === 'cash'){
+    numCashSales++;
+  }
+}
 
 console.log( 'The total number of cash sales is:', numCashSales );
 
@@ -188,7 +206,13 @@ console.log( 'The total number of cash sales is:', numCashSales );
   HINT(S):
   - Make sure to exclude any 'sales' made by 'credit'!
 */
-var numCreditPurchases;
+var numCreditPurchases=0;
+
+for(i=0; i<totalTransactions; i++){
+  if (transactions[i].type === 'purchase' && transactions[i].paymentMethod === 'credit'){
+    numCreditPurchases++;
+  }
+}
 
 console.log( 'The total number of credit purchases is:', numCreditPurchases );
 
@@ -205,7 +229,13 @@ console.log( 'The total number of credit purchases is:', numCreditPurchases );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - This array is allowed to contain duplicate values.
 */
-var allVendors;
+var allVendors= [];
+
+for(i=0; i<totalTransactions; i++){
+  if(transactions[i].vendor){
+    allVendors.push(transactions[i].vendor);
+  }
+}
 
 console.log( 'The vendors are:', allVendors );
 
@@ -222,7 +252,17 @@ console.log( 'The vendors are:', allVendors );
   - The assembled array should be made up of strings, not full `transaction` objects.
   - Make sure that the resulting array *does not* include any duplicates.
 */
-var uniqueCustomers;
+var uniqueCustomers=[];
+
+for(i=0; i<totalTransactions; i++){
+  if(transactions[i].customer){
+
+    if (uniqueCustomers.indexOf(transactions[i].customer) === -1){
+        uniqueCustomers.push(transactions[i].customer);
+    }
+
+  }
+}
 
 console.log( 'The unique customers are:', uniqueCustomers );
 
@@ -240,7 +280,18 @@ console.log( 'The unique customers are:', uniqueCustomers );
   - There may be more than 1 'sale' that includes 5 or more items.
   - Individual transactions do not have either `name` or `numItems` properties, we'll have to add them to the output.
 */
-var bigSpenders;
+var bigSpenders= [];
+
+for(i=0; i<totalTransactions; i++){
+  if(transactions[i].customer && transactions[i].type === 'sale' && transactions[i].items.length >=5){
+    var infoHash = {
+                    Name: transactions[i].customer,
+                    numItems: transactions[i].items.length
+    }
+
+    bigSpenders.push(infoHash);
+  }
+}
 
 console.log( 'The "big spenders" are:', bigSpenders );
 
